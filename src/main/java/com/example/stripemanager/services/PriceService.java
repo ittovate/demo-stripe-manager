@@ -3,10 +3,7 @@ package com.example.stripemanager.services;
 
 import com.stripe.exception.StripeException;
 import com.stripe.model.Price;
-import com.stripe.param.PriceCreateParams;
-import com.stripe.param.PriceListParams;
-import com.stripe.param.PriceUpdateParams;
-import com.stripe.param.ProductListParams;
+import com.stripe.param.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,19 +14,45 @@ public class PriceService {
 
     /**
      * Creates a new price for an existing product. The price can be recurring or one-time.
+     *
      * @param price
      * @return
      * @throws StripeException
      */
     public Price addPrice(Price price) throws StripeException {
+        Price.Recurring recurring = price.getRecurring();
+        PriceCreateParams.Recurring.Interval interval;
+        PriceCreateParams.Recurring createRecurringParams;
+        if (recurring != null) {
+
+            switch (recurring.getInterval()) {
+                case "day":
+                    interval = PriceCreateParams.Recurring.Interval.DAY;
+                    break;
+                case "month":
+                    interval = PriceCreateParams.Recurring.Interval.MONTH;
+                    break;
+                case "week":
+                    interval = PriceCreateParams.Recurring.Interval.WEEK;
+                    break;
+                default:
+                    interval = PriceCreateParams.Recurring.Interval.YEAR;
+                    break;
+
+            }
+            createRecurringParams = PriceCreateParams.Recurring.builder()
+                    .setInterval(interval)
+                    .build();
+        } else {
+            createRecurringParams = null;
+        }
+
         PriceCreateParams params =
                 PriceCreateParams.builder()
                         .setCurrency(price.getCurrency())
                         .setUnitAmount(price.getUnitAmount())
                         .setRecurring(
-                                PriceCreateParams.Recurring.builder()
-                                        .setInterval(PriceCreateParams.Recurring.Interval.MONTH)
-                                        .build()
+                                createRecurringParams
                         )
                         .setProduct(price.getProduct())
                         .build();
@@ -57,6 +80,7 @@ public class PriceService {
 
     /**
      * Retrieves the price with the given ID.
+     *
      * @param id
      * @return
      * @throws StripeException
@@ -68,6 +92,7 @@ public class PriceService {
 
     /**
      * Returns a list of your active prices, excluding @see <a href="https://docs.stripe.com/products-prices/pricing-models#inline-pricing"> inline prices</a>. For the list of inactive prices, set active to false.
+     *
      * @param active
      * @param product
      * @param endingBefore
