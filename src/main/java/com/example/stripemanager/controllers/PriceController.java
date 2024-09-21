@@ -28,8 +28,6 @@ public class PriceController {
 
     @PostMapping("/")
     public ResponseEntity<RestResponse<Price>> addPrice(@RequestBody Price price) throws StripeException {
-        System.out.println(price.toJson());
-
         RestResponse<Price> response = new RestResponse<>(priceService.addPrice(price), "", HttpStatus.ACCEPTED);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
