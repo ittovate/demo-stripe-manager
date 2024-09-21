@@ -38,6 +38,7 @@ public class InvoiceService {
                 .setDefaultPaymentMethod(invoice.getDefaultPaymentMethod())
                 .setDueDate(invoice.getDueDate()) //  Valid only for invoices where `collection_method=send_invoice`.
                 .setEffectiveAt(invoice.getEffectiveAt())
+                .setPendingInvoiceItemsBehavior(InvoiceCreateParams.PendingInvoiceItemsBehavior.INCLUDE)
                 .build();
 
         return Invoice.create(params);
@@ -88,7 +89,7 @@ public class InvoiceService {
             case "void":
                 statusEnum = InvoiceListParams.Status.VOID;
                 break;
-            default:
+            case null, default:
                 statusEnum = null;
         }
 
