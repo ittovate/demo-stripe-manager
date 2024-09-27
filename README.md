@@ -277,3 +277,40 @@ Set up and manage webhook endpoints to receive real-time event notifications fro
 ### Webhook Endpoints
 
 - `POST /webhookendpoints/`: Receive webhook notifications
+
+
+
+## More details about each point.  read the documentation.
+
+**products** 
+```
+https://docs.stripe.com/api/products
+```
+**prices**  
+```
+https://docs.stripe.com/api/prices
+```
+**payment-link** 
+```
+https://docs.stripe.com/api/payment-link
+```
+
+**invoices**
+```
+https://docs.stripe.com/api/invoices
+```
+**invoiceitems**
+
+```
+https://docs.stripe.com/api/invoiceitems
+```
+**balance**
+```
+https://docs.stripe.com/api/balance
+```
+
+**webhook_endpoints**
+
+```
+https://docs.stripe.com/api/webhook_endpoints
+```
