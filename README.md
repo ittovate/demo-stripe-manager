@@ -1,16 +1,71 @@
-# Stripe Manager
+# Demo Stripe Manager
 
 Stripe Manager is a Spring Boot application that provides a comprehensive interface to interact with various Stripe API endpoints. It includes controllers for managing balances, invoices, payment links, prices, products, and webhooks.
 
 
 ## Features
 
-- Balance management
-- Invoice creation and management
-- Payment link generation
-- Price and product management
-- Webhook handling
+### Balance management
 
+ 1. The balance is like a summary of how much money you have in your Stripe account.
+    
+ 2. You can check your balance anytime to see how much money is there.
+    
+ 3. You can also look at your balance history. This shows you a list of past transactions 
+    
+### Invoice catalog management
+
+ `Invoices` are used when you want to formally bill a customer and include detailed transaction information.
+ 
+Invoice lifecycle : 
+
+**1-**  A newly created invoice has `draft` status.
+
+**2-** Stripe finalizes an invoice when it’s ready to be paid by changing its status to `open`.
+   You can no longer change most details of a finalized invoice.
+      
+**3-** Stripe can wait for the customer to pay the invoice or automatically attempt to pay it using the 
+      customer’s default payment method.
+      
+ > If payment succeeds, Stripe updates the invoice status to `paid`.
+
+ >  If payment fails, the invoice remains `open`.
+        
+**4-** Optionally, you can change the status of an unpaid invoice to void or uncollectible. 
+
+### Payment link generation
+ 
+Payment Links let you sell online without needing to create a website or app.
+
+
+With Payment Links, you can :
+
+**1-** Accept payments or sell subscriptions.`Share the link anywhere` , like on social media, in emails, or on your website.
+
+**2-** It supports more than 20 ways to pay
+
+**3-** the payment page will automatically appear in your customer's language (`over 30 languages` )
+
+### price catalog management
+
+Prices are important in managing how much customers pay for products. They define:
+
+**Unit cost:** The price for one item.
+
+**Currency:** The type of money used for the payment (like USD, EUR).
+
+**Billing cycle:** How often the customer is charged (for example, monthly or yearly). This is optional.
+
+### product catalog management
+
+Products help you organize what you offer. You can also use products with Prices to set how much they cost.
+This is useful when setting up payments in things like Payment Links, Checkout, or Subscriptions
+
+### notification management 
+
+Webhook endpoints are special URLs that you set up to get notifications when certain things happen in your Stripe account or connected accounts.
+    
+When an event occurs (like a payment or a refund), Stripe sends a message to your webhook endpoint to let you know.
 
 ## Prerequisites
 
