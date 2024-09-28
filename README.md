@@ -44,9 +44,7 @@ Payment links allow you to offer this functionality through subscriptions. Your 
 
 Examples of payment link usage:
 
-**1-** Subscribe to a service: Create a payment link for recurring subscriptions, e.g., "Join Monthly Book Club - $15/month"
-
-**2-** Register for an event: Use a payment link for event registration, e.g., "Sign up for Conference - $199"
+ Register for an event: Use a payment link for event registration, e.g., "Sign up for Conference - $199"
 
 ### price catalog management
 
