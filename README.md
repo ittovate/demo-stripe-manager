@@ -37,24 +37,24 @@ Invoice lifecycle :
  
 Payment Links let you sell online without needing to create a website or app.
 
+Payment links allow you to offer this functionality through subscriptions. Your payment provider will supply you with a secure payment page, where customers will be directed to enter their payment information when they click on the link.
 
-With Payment Links, you can :
+Examples of payment link usage:
 
-**1-** Accept payments or sell subscriptions.`Share the link anywhere` , like on social media, in emails, or on your website.
+**1-** Subscribe to a service: Create a payment link for recurring subscriptions, e.g., "Join Monthly Book Club - $15/month"
 
-**2-** It supports more than 20 ways to pay
-
-**3-** the payment page will automatically appear in your customer's language (`over 30 languages` )
+**2-** Register for an event: Use a payment link for event registration, e.g., "Sign up for Conference - $199"
 
 ### price catalog management
 
-Prices are important in managing how much customers pay for products. They define:
+**1-** Price catalog management allows you to create, update, and organize your product pricing.
 
-**Unit cost:** The price for one item.
+**2-** Prices can be configured as one-time charges or recurring subscriptions with various billing intervals   (e.g., monthly, annually).
 
-**Currency:** The type of money used for the payment (like USD, EUR).
+**3-** Price management integrates with other Stripe features, allowing you to use these prices in invoices, checkout sessions, and subscription management
 
-**Billing cycle:** How often the customer is charged (for example, monthly or yearly). This is optional.
+**4-**Price catalog management helps ensure consistent pricing across your platform and simplifies the process of updating prices or introducing new pricing models.
+
 
 ### product catalog management
 
