@@ -2,10 +2,30 @@
 
 Stripe Manager is a Spring Boot application that provides a comprehensive interface to interact with various Stripe API endpoints. It includes controllers for managing balances, invoices, payment links, prices, products, and webhooks.
 
+
+
 ## What is the Stripe API?
 
 The Stripe API is a set of endpoint provided by Stripe, a leading online payment processing platform. It allows developers to integrate Stripe's payment processing capabilities into their own applications, websites, or services
 
+## Purpose of This Project
+
+The primary purpose of this project is to demonstrate how developers can effectively integrate with the Stripe API. 
+
+## Key Features of the Stripe API
+
+ **1-** Balance management
+ 
+ **2-** Invoice catalog management
+ 
+ **3-** Payment link generation
+ 
+ **4-** price catalog management
+ 
+ **5-** product catalog management
+ 
+ **6-** notification management 
+ 
 ## Features
 
 ### Balance management
@@ -127,7 +147,22 @@ IntelliJ IDEA can use the Maven configuration to run your Spring Boot applicatio
 2. Locate the main class file `StripeManagerApplication `.
 3. Right-click on the main class file and select `Run StripeManagerApplication` .
 
+## user journey: 
 
+1- as an admin, you create products ( refer to the docs to know how to do that: 
+  `https://docs.stripe.com/api/products/create` )
+  
+2- as an admin, you create prices, and associate prices with existing products (refer to the docs to know how to do that: `https://docs.stripe.com/api/prices/create` )
+
+3- as an admin, you can create payment links with either a fixed amount, or based on purchased product or products (refer to the docs: `https://docs.stripe.com/api/payment-link/create` )
+
+4- as an admin, create invoice to payment (  refer to the docs to know how to do that: `https://docs.stripe.com/api/invoices`)
+
+5- admin -> finalize invoices, pay or fogive invoices, send invoice to customer mail to be paid
+
+6- customer -> receive the invoice over email to pay it, or use the provided payment link to make the payment 
+
+7- admin -> retrieve the balance, list balance transactions
 
 ## API Endpoints
 
