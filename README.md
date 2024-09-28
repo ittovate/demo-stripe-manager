@@ -53,19 +53,30 @@ Examples of payment link usage:
 
 **3-** Price management integrates with other Stripe features, allowing you to use these prices in invoices, checkout sessions, and subscription management
 
-**4-**Price catalog management helps ensure consistent pricing across your platform and simplifies the process of updating prices or introducing new pricing models.
+**4-** Price catalog management helps ensure consistent pricing across your platform and simplifies the process of updating prices or introducing new pricing models.
 
 
 ### product catalog management
 
-Products help you organize what you offer. You can also use products with Prices to set how much they cost.
-This is useful when setting up payments in things like Payment Links, Checkout, or Subscriptions
+Create and organize products (physical goods, digital items, services)
+
+Integrate products with pricing, payment links, and invoices. 
+
+Easily update prices across the system by modifying the product-price association
+
+Generate payment links  for single products or product bundles Customize payment links
+
+Use products as the central entity to maintain consistency across all payment features
+
 
 ### notification management 
 
 Webhook endpoints are special URLs that you set up to get notifications when certain things happen in your Stripe account or connected accounts.
     
 When an event occurs (like a payment or a refund), Stripe sends a message to your webhook endpoint to let you know.
+
+send an email to the customer who paid to let them know that their payment is received, payment
+method was added to their account 
 
 ## Prerequisites
 
