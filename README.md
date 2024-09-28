@@ -2,6 +2,9 @@
 
 Stripe Manager is a Spring Boot application that provides a comprehensive interface to interact with various Stripe API endpoints. It includes controllers for managing balances, invoices, payment links, prices, products, and webhooks.
 
+## What is the Stripe API?
+
+The Stripe API is a set of endpoint provided by Stripe, a leading online payment processing platform. It allows developers to integrate Stripe's payment processing capabilities into their own applications, websites, or services
 
 ## Features
 
