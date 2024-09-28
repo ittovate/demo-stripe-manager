@@ -147,22 +147,39 @@ IntelliJ IDEA can use the Maven configuration to run your Spring Boot applicatio
 2. Locate the main class file `StripeManagerApplication `.
 3. Right-click on the main class file and select `Run StripeManagerApplication` .
 
-## user journey: 
+## User Journey
 
-1- as an admin, you create products ( refer to the docs to know how to do that: 
-  `https://docs.stripe.com/api/products/create` )
-  
-2- as an admin, you create prices, and associate prices with existing products (refer to the docs to know how to do that: `https://docs.stripe.com/api/prices/create` )
+### Admin Actions
 
-3- as an admin, you can create payment links with either a fixed amount, or based on purchased product or products (refer to the docs: `https://docs.stripe.com/api/payment-link/create` )
+1. **Create Products**  
+   Use the Stripe API to create products. Refer to the [Stripe Documentation](https://docs.stripe.com/api/products/create) for details on how to implement this.
 
-4- as an admin, create invoice to payment (  refer to the docs to know how to do that: `https://docs.stripe.com/api/invoices`)
+2. **Create Prices**  
+   Set prices and associate them with existing products. Check the [Stripe Documentation](https://docs.stripe.com/api/prices/create) for guidance.
 
-5- admin -> finalize invoices, pay or fogive invoices, send invoice to customer mail to be paid
+3. **Create Payment Links**  
+   Generate payment links for customers with either:
+   - A fixed amount
+   - Based on one or more purchased products  
+   See the [Stripe Documentation](https://docs.stripe.com/api/payment-link/create) for implementation details.
 
-6- customer -> receive the invoice over email to pay it, or use the provided payment link to make the payment 
+4. **Create Invoices**  
+   Generate, finalize, and process invoices for customer payments. You can also send invoices via email for payment. Refer to the [Stripe Documentation](https://docs.stripe.com/api/invoices/create) for further details.
 
-7- admin -> retrieve the balance, list balance transactions
+5. **Financial Management**  
+   Manage financial data by retrieving account balances and listing balance transactions. For more information, visit the [Stripe Documentation](https://docs.stripe.com/api/balance).
+
+
+
+### Customer Actions
+
+- **Receive Invoices**  
+  Customers will receive invoices via email.
+
+- **Make Payments**  
+  Customers can pay invoices through:
+  - A link provided in the email invoice
+  - A custom payment link created by the admin
 
 ## API Endpoints
 
