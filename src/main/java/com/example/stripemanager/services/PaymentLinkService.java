@@ -1,11 +1,15 @@
 package com.example.stripemanager.services;
 
 
+import com.example.stripemanager.dto.PaymentLinkDTO;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentLink;
+import com.stripe.model.PaymentLinkCollection;
 import com.stripe.param.PaymentLinkCreateParams;
 import com.stripe.param.PaymentLinkListParams;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,7 +21,8 @@ public class PaymentLinkService {
      * @return the payment link.
      * @throws StripeException
      */
-    public PaymentLink creatPaymentLink(PaymentLink paymentLink) throws StripeException {
+
+    public PaymentLinkDTO creatPaymentLink(PaymentLink paymentLink) throws StripeException {
         PaymentLinkCreateParams.Restrictions restrictions = PaymentLinkCreateParams.Restrictions.builder()
                 .setCompletedSessions(
                         PaymentLinkCreateParams.Restrictions.CompletedSessions.builder()
@@ -35,11 +40,18 @@ public class PaymentLinkService {
                                 .setQuantity(paymentLink.getLineItems().getData().get(0).getQuantity())
                                 .build())
                         .build();
+        PaymentLink createdPaymentLink =  PaymentLink.create(params);
 
-        return PaymentLink.create(params);
+        PaymentLinkDTO responseDto = new PaymentLinkDTO();
+        responseDto.setActive(createdPaymentLink.getActive());
+        responseDto.setLivemode(createdPaymentLink.getLivemode());
+        responseDto.setApplicationFeeAmount(createdPaymentLink.getApplicationFeeAmount()) ;
+        responseDto.setObject(createdPaymentLink.getObject());
+
+        return responseDto ;
+
+
     }
-
-
     /**
      * Returns a list of your payment links.
      * @param active: Only return payment links that are active or inactive (e.g., pass false to list all inactive payment links).
@@ -58,7 +70,7 @@ public class PaymentLinkService {
      *                      If no more payment links are available, the resulting array will be empty. This request should never throw an error.
      * @throws StripeException
      */
-    public List<PaymentLink> listPaymentLinks(
+    public List<PaymentLinkDTO> listPaymentLinks(
             Boolean active,
             String endingBefore,
             Long limit,
@@ -71,7 +83,33 @@ public class PaymentLinkService {
                 .setLimit(limit)
                 .setStartingAfter(startingAfter)
                 .build();
-        return PaymentLink.list(params).getData();
+
+        PaymentLinkCollection paymentLinkCollection = PaymentLink.list(params);
+        List<PaymentLink> paymentLinks = paymentLinkCollection.getData();
+
+        List<PaymentLinkDTO> paymentLinkDTOList = new ArrayList<>();
+
+        for (PaymentLink paymentLink : paymentLinks) {
+            PaymentLinkDTO dto = new PaymentLinkDTO();
+            dto.setId(paymentLink.getId());
+            dto.setObject(paymentLink.getObject());
+            dto.setActive(paymentLink.getActive());
+            dto.setAllowPromotionCodes(paymentLink.getAllowPromotionCodes());
+            dto.setApplicationFeeAmount(paymentLink.getApplicationFeeAmount());
+            dto.setBillingAddressCollection(paymentLink.getBillingAddressCollection());
+            dto.setCurrency(paymentLink.getCurrency());
+            dto.setCustomerCreation(paymentLink.getCustomerCreation());
+            dto.setLivemode(paymentLink.getLivemode());
+            dto.setOnBehalfOf(paymentLink.getOnBehalfOf());
+            dto.setPaymentMethodCollection(paymentLink.getPaymentMethodCollection());
+            dto.setSubmitType(paymentLink.getSubmitType());
+            dto.setUrl(paymentLink.getUrl());
+
+            paymentLinkDTOList.add(dto);
+        }
+
+        return paymentLinkDTOList;
+
     }
 
 
@@ -81,9 +119,30 @@ public class PaymentLinkService {
      * @return: A Payment Link Object
      * @throws StripeException
      */
-    public PaymentLink getPaymentLinkById(String id) throws StripeException {
-        return PaymentLink.retrieve(id);
+    public PaymentLinkDTO getPaymentLinkById(String id) throws StripeException {
+
+        PaymentLink  paymentLink = PaymentLink.retrieve(id) ;
+
+        PaymentLinkDTO dto = new PaymentLinkDTO();
+
+        dto.setId(paymentLink.getId());
+        dto.setObject(paymentLink.getObject());
+        dto.setActive(paymentLink.getActive());
+        dto.setAllowPromotionCodes(paymentLink.getAllowPromotionCodes());
+        dto.setApplicationFeeAmount(paymentLink.getApplicationFeeAmount());
+        dto.setBillingAddressCollection(paymentLink.getBillingAddressCollection());
+        dto.setCurrency(paymentLink.getCurrency());
+        dto.setCustomerCreation(paymentLink.getCustomerCreation());
+        dto.setLivemode(paymentLink.getLivemode());
+        dto.setOnBehalfOf(paymentLink.getOnBehalfOf());
+        dto.setPaymentMethodCollection(paymentLink.getPaymentMethodCollection());
+        dto.setSubmitType(paymentLink.getSubmitType());
+        dto.setUrl(paymentLink.getUrl());
+
+        return dto ;
     }
 
 
 }
+
+
