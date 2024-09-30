@@ -16,8 +16,12 @@ import java.util.List;
 @RequestMapping("/webhooks")
 public class WebhookController {
 
-    @Autowired
-    WebhookService webhookService;
+
+    private final WebhookService webhookService;
+
+    public WebhookController(WebhookService webhookService) {
+        this.webhookService = webhookService;
+    }
 
     @PostMapping("/")
     public ResponseEntity<RestResponse<WebhookEndpoint>> addWebhookEndpoint(@RequestBody WebhookEndpoint webhook) throws StripeException {

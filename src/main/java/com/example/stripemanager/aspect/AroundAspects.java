@@ -1,6 +1,7 @@
 package com.example.stripemanager.aspect;
 
 
+import com.example.stripemanager.constants.StringConstant;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -27,7 +28,7 @@ public class AroundAspects {
         long endTime = System.nanoTime();
         double durationInMilliseconds = (double) (endTime - startTime) / 1_000_000;
 
-        LOGGER.info("The duration time for the execution of the method {} in the class {} took {} milliseconds to execute", methodName, className, durationInMilliseconds);
+        LOGGER.info(StringConstant.AroundAspects_BasicProfiling, methodName, className, durationInMilliseconds);
 
         return retVal;
     }

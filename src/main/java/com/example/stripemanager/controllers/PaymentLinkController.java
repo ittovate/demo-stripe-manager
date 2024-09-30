@@ -16,8 +16,12 @@ import java.util.List;
 @RequestMapping("/payment-links")
 public class PaymentLinkController {
 
-    @Autowired
-    private PaymentLinkService paymentLinkService;
+
+    private final PaymentLinkService paymentLinkService;
+
+    public PaymentLinkController(PaymentLinkService paymentLinkService) {
+        this.paymentLinkService = paymentLinkService;
+    }
 
 
     @PostMapping("/")

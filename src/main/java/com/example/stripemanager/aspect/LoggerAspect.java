@@ -1,5 +1,6 @@
 package com.example.stripemanager.aspect;
 
+import com.example.stripemanager.constants.StringConstant;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -37,27 +38,11 @@ public class LoggerAspect {
     public void logAfterThrowing(JoinPoint joinPoint, Throwable ex) {
         String methodName = joinPoint.getSignature().getName();
         String className = joinPoint.getTarget().getClass().getName();
-        LOGGER.error("Exception: From method : From method : ' {} ' in class : ' {} '  , message exception : {}",
+        LOGGER.error(StringConstant.LoggerAspect_AfterThrowing,
                 methodName, className, ex.getMessage());
     }
 
 
-//    /**
-//     * @param joinPoint
-//     * @throws Throwable
-//     */
-//    @Around("execution( * com.example.stripemanager.services.EmailService.validateEmailAndSend(..) )")
-//    public void loggerAround(ProceedingJoinPoint joinPoint) throws Throwable {
-//        String className = joinPoint.getTarget().getClass().getSimpleName();
-//        String methodName = joinPoint.getSignature().getName();
-//
-//        LOGGER.info("Beginning to check if the data is valid in method: {} of class: {}.", methodName, className);
-//
-//        joinPoint.proceed();
-//
-//        LOGGER.info("Data validation completed successfully. The email data is valid and will now be sent.");
-//
-//    }
 
 
 }

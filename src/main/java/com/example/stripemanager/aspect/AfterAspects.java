@@ -1,5 +1,6 @@
 package com.example.stripemanager.aspect;
 
+import com.example.stripemanager.constants.StringConstant;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -15,7 +16,7 @@ public class AfterAspects {
     public void afterReturning(JoinPoint jp) {
         String className = jp.getTarget().getClass().getSimpleName();
         String methodName = jp.getSignature().getName();
-        LOGGER.info(" After Returning: From method : {} in class : {} ", methodName , className );
+        LOGGER.info(StringConstant.AfterAspects_afterReturning, methodName , className );
     }
 
 }

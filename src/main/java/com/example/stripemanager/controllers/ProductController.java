@@ -8,6 +8,7 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,13 @@ import java.util.Map;
 @RequestMapping("/products")
 public class ProductController {
 
-    @Autowired
-    ProductService productService;
 
-    public ProductController(@Value("${stripe.apiKey}")
-                             String apiKey) {
-        Stripe.apiKey = apiKey;
+    private final ProductService productService;
+
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+
     }
 
     @PostMapping("/")

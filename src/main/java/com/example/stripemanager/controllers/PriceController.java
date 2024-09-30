@@ -18,13 +18,13 @@ import java.util.List;
 @RequestMapping("prices")
 public class PriceController {
 
-    @Autowired
-    PriceService priceService;
 
-    public PriceController(@Value("${stripe.apiKey}")
-                             String apiKey) {
-        Stripe.apiKey = apiKey;
+    private final PriceService priceService;
+
+    public PriceController(PriceService priceService) {
+        this.priceService = priceService;
     }
+
 
     @PostMapping("/")
     public ResponseEntity<RestResponse<Price>> addPrice(@RequestBody Price price) throws StripeException {
