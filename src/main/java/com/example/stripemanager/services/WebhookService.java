@@ -31,15 +31,13 @@ public class WebhookService {
         WebhookEndpointCreateParams.EnabledEvent enabledEvent = WebhookEndpointCreateParams.EnabledEvent.ALL;
 
         if (enabledEventsLength == 1) {
-            System.out.println("came here why?");
+
             if (!webhook.getEnabledEvents().get(0).equals("*")) {
                 enabledEvent = WebhookEndpointCreateParams.EnabledEvent.valueOf(webhook.getEnabledEvents().get(0));
             }
             webhook.setEnabledEvents(List.of(enabledEvent.name()));
         }
-        webhook.getEnabledEvents().stream().forEach(item ->{
-            System.out.println("printing item " + item);
-        });
+
 
         WebhookEndpointCreateParams params = WebhookEndpointCreateParams.builder()
                 .setUrl(webhook.getUrl())

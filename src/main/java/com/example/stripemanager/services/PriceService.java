@@ -61,22 +61,6 @@ public class PriceService {
     }
 
 
-    /**
-     * Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
-     * @param id
-     * @return
-     * @throws StripeException
-     */
-    public Price updatePriceById(String id) throws StripeException {
-
-        Price resource = Price.retrieve(id);
-
-        PriceUpdateParams params =
-                PriceUpdateParams.builder().putMetadata("order_id", "6735").build();
-
-        return resource.update(params);
-    }
-
 
     /**
      * Retrieves the price with the given ID.
