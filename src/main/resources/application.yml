@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: StripeManager
+
+  jackson:
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+
+  mvc:
+    converters:
+      preferred-json-mapper: gson
+
+
+stripe:
+  apiKey: ${STRIPE_API_KEY}
+  api:
+    publishable-key: ${STRIPE_API_PUPLISHABLE_KEY}
+    secret-key: ${STRIPE_API_SECRET_KEY}
