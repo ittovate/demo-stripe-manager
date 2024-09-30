@@ -1,6 +1,8 @@
 package com.example.stripemanager.controllers;
 
 
+import com.example.stripemanager.dto.ProductDTO;
+import com.example.stripemanager.dto.ProductResponseDTO;
 import com.example.stripemanager.services.ProductService;
 import com.example.stripemanager.utils.RestResponse;
 import com.stripe.Stripe;
@@ -30,23 +32,24 @@ public class ProductController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<RestResponse<Product>> addProduct(@RequestBody Product product) throws StripeException {
-        RestResponse<Product> response = new RestResponse<>(productService.addProduct(product), "", HttpStatus.ACCEPTED);
+    public ResponseEntity<RestResponse<ProductResponseDTO>> addProduct(@RequestBody ProductDTO product) throws StripeException {
+
+        RestResponse<ProductResponseDTO> response = new RestResponse<>(productService.addProduct(product), "", HttpStatus.ACCEPTED);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<RestResponse<Product>> getProductById(@PathVariable String id) throws StripeException {
-        RestResponse<Product> response = new RestResponse<>(productService.getProductById(id), "", HttpStatus.OK);
+    public ResponseEntity<RestResponse<ProductResponseDTO>> getProductById(@PathVariable String id) throws StripeException {
+        RestResponse<ProductResponseDTO> response = new RestResponse<>(productService.getProductById(id), "", HttpStatus.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
 
     @GetMapping("/")
-    public ResponseEntity<RestResponse<List<Product>>> listProducts(
+    public ResponseEntity<RestResponse<List<ProductResponseDTO>>> listProducts(
             @RequestParam(required = false) Boolean active,
             @RequestParam(required = false) Map<String, Long> created,
             @RequestParam(required = false) String endingBefore,
@@ -57,7 +60,7 @@ public class ProductController {
             @RequestParam(required = false) String url
     ) throws StripeException {
 
-        List<Product> products = productService.listProducts(
+        List<ProductResponseDTO> products = productService.listProducts(
                 active,
                 created,
                 endingBefore,
@@ -67,7 +70,7 @@ public class ProductController {
                 url
         );
 
-        RestResponse<List<Product>> response = new RestResponse<>(products, "", HttpStatus.ACCEPTED);
+        RestResponse<List<ProductResponseDTO>> response = new RestResponse<>(products, "", HttpStatus.ACCEPTED);
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 

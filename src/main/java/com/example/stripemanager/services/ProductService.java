@@ -1,19 +1,27 @@
 package com.example.stripemanager.services;
 
+import com.example.stripemanager.dto.ProductDTO;
+import com.example.stripemanager.dto.ProductResponseDTO;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Product;
+import com.stripe.model.ProductCollection;
 import com.stripe.param.ProductCreateParams;
 import com.stripe.param.ProductListParams;
 import com.stripe.param.ProductUpdateParams;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
+import java.beans.BeanProperty;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class ProductService {
+
 
     public ProductService(@Value("${stripe.api.secret-key}")
                           String apiKey) {
@@ -26,17 +34,27 @@ public class ProductService {
      * @return
      * @throws StripeException
      */
-    public Product addProduct(Product product) throws StripeException {
+
+    public ProductResponseDTO addProduct(ProductDTO product) throws StripeException {
 
         ProductCreateParams params =
                 ProductCreateParams.builder()
                         .setName(product.getName())
                         .setActive(product.getActive())
-                        .setShippable(product.getShippable())
                         .setDescription(product.getDescription())
                         .build();
 
-        return Product.create(params);
+        Product createdProduct =  Product.create(params) ;
+
+
+        ProductResponseDTO responseDto = new ProductResponseDTO();
+        responseDto.setActive(createdProduct.getActive());
+        responseDto.setLivemode(createdProduct.getLivemode());
+        responseDto.setName(createdProduct.getName());
+        responseDto.setUpdated(createdProduct.getUpdated());
+        responseDto.setType(createdProduct.getType());
+
+        return responseDto ;
     }
 
 
@@ -50,8 +68,20 @@ public class ProductService {
      * @return the retrieved product
      * @throws StripeException
      */
-    public Product getProductById(String id) throws StripeException {
-        return Product.retrieve(id);
+
+    public ProductResponseDTO getProductById(String id) throws StripeException {
+        Product  product = Product.retrieve(id);
+
+        ProductResponseDTO responseDto = new ProductResponseDTO();
+        responseDto.setId(product.getId());
+        responseDto.setActive(product.getActive());
+        responseDto.setLivemode(product.getLivemode());
+        responseDto.setName(product.getName());
+        responseDto.setUpdated(product.getUpdated());
+        responseDto.setType(product.getType());
+
+        return responseDto;
+
     }
 
 
@@ -75,7 +105,8 @@ public class ProductService {
      * starting after product starting_after. Each entry in the array is a separate product object.
      * If no more products are available, the resulting array will be empty.
      */
-    public List<Product> listProducts(
+
+    public List<ProductResponseDTO> listProducts(
             Boolean active,
             Map<String, Long> created,
             String endingBefore,
@@ -84,25 +115,43 @@ public class ProductService {
             String startingAfter,
             String url
     ) throws StripeException {
-
-        ProductListParams.Created created1 = new ProductListParams.Created.Builder()
-                .setGt(created.get("gt"))
-                .setGte(created.get("gte"))
-                .setLt(created.get("lt"))
-                .setLte(created.get("lte"))
-                .build();
-
-        ProductListParams params = ProductListParams.builder()
+        ProductListParams.Builder paramsBuilder = ProductListParams.builder()
                 .setLimit(limit)
                 .setActive(active)
                 .setShippable(shippable)
                 .setStartingAfter(startingAfter)
                 .setUrl(url)
-                .setEndingBefore(endingBefore)
-                .setCreated(created1)
-                .build();
+                .setEndingBefore(endingBefore);
 
-        return Product.list(params).getData();
+
+            ProductListParams.Created created1 = new ProductListParams.Created.Builder()
+                    .setGt(created.get("gt"))
+                    .setGte(created.get("gte"))
+                    .setLt(created.get("lt"))
+                    .setLte(created.get("lte"))
+                    .build();
+            paramsBuilder.setCreated(created1);
+
+
+        ProductListParams params = paramsBuilder.build();
+
+        ProductCollection productCollection = Product.list(params);
+        List<Product> productList = productCollection.getData();
+
+        List<ProductResponseDTO> productResponseList = new ArrayList<>();
+
+        for (Product product : productList) {
+            ProductResponseDTO responseDto = new ProductResponseDTO();
+            responseDto.setActive(product.getActive());
+            responseDto.setLivemode(product.getLivemode());
+            responseDto.setName(product.getName());
+            responseDto.setUpdated(product.getUpdated());
+            responseDto.setType(product.getType());
+            responseDto.setId(product.getId());
+            productResponseList.add(responseDto);
+        }
+
+        return productResponseList;
     }
 
 
