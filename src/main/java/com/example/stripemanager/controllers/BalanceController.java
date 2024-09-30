@@ -19,8 +19,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/balance")
 public class BalanceController {
-    @Autowired
-    private BalanceService balanceService;
+
+    private final BalanceService balanceService;
+
+    public BalanceController(BalanceService balanceService) {
+        this.balanceService = balanceService;
+    }
+
 
     @GetMapping("/")
     public ResponseEntity<RestResponse<Balance>> getAccountBalance() throws StripeException {

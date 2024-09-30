@@ -16,10 +16,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/invoice-items")
 public class InvoiceItemsController {
+    private final InvoiceItemsService invoiceItemsService;
 
-    @Autowired
-    private InvoiceItemsService invoiceItemsService;
-
+    public InvoiceItemsController(InvoiceItemsService invoiceItemsService) {
+        this.invoiceItemsService = invoiceItemsService;
+    }
 
 
     @PostMapping("/")
